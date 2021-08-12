@@ -14,37 +14,44 @@ var createGameboard = (() => {
         }
     }
     function addMove(Player,steps) {
-        // debugger;
-        playerIcon.splice(steps-1, 1, Player);
+        // if marker exists, do nothing //
+        if (playerIcon[steps] != ''){
+            return null;
+        }
+        else{
+        playerIcon.splice(steps, 1, Player);
         generateBoard();
+        user.turn = !user.turn;
+        }
     }
     return {
         generateBoard : generateBoard,
         addMove: addMove
     };
-
 })();
 
 const Player = (name) => {
     const getName = () => name;
+    const turn = () => true;
     const move = (steps) => createGameboard.addMove(name, steps);
-    return {getName, move};
+    return {getName, move, turn};
 }
-
-
-
 
 var displayController = (() => {
     document.addEventListener('click', function(e){
+
+        // getting grid element from target click // 
         var gridItem = document.querySelectorAll('[id^="grid"]');
-        console.log(gridItem);
-        console.log(e.target.id);
         for (i=0; i<gridItem.length; i++){
-            var steps = gridItem[i].id.substr(5);
+            // retrieving amount of steps for placing player marker in next function //
+            var steps = gridItem[i].id.substr(5) - 1;
             if (e.target.id == gridItem[i].id){
-                // debugger;
-                console.log(e.target);
-                user.move(steps);
+                if (user.turn){
+                    user.move(steps);
+                }
+                else {
+                    user2.move(steps);
+                }
             }
         }
     })
