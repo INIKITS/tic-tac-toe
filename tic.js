@@ -58,8 +58,8 @@ var displayController = (() => {
             }
         }
     })
-    function win(){
-        console.log("Win!")
+    function win(name){
+        console.log(name + " Wins!")
     }
 
     function checkForWin() {
@@ -75,19 +75,49 @@ var displayController = (() => {
             [2,4,6]
         ];
         for (var i=0; i<winConditions.length; i++){
-
-            for (var j=0; j<winConditions[i].length-1; j++){
+            var x = 0;
+            var o = 0;
+            for (var j=0; j<winConditions[i].length; j++){
+                // debugger;
                 var markerIndex = winConditions[i][j];
                 var checkSquare = createGameboard.playerIcon[markerIndex];
                 if (checkSquare === ''){
                     continue;
                 }
-                else if (checkSquare == createGameboard.playerIcon[markerIndex+1] &&
-                    createGameboard.playerIcon[markerIndex+1] == createGameboard.playerIcon[markerIndex-1]){
-                    win();
+                else if (checkSquare == 'x' ? x += 1 : o += 1){
+                    if (x === 3){
+                        win(user.getName());
+                    }
+                    else if (o === 3) {
+                        win(user2.getName());
+                    }
                 }
             }
         }
+
+
+                // else if (checkSquare == createGameboard.playerIcon[markerIndex+1] &&
+                //     createGameboard.playerIcon[markerIndex+1] == createGameboard.playerIcon[markerIndex-1]){
+                //     win();
+                    
+                // }
+                // else if(checkSquare == createGameboard.playerIcon[markerIndex+3] &&
+                //     createGameboard.playerIcon[markerIndex+3] == createGameboard.playerIcon[markerIndex-3]){
+                //     win();
+                  
+                // }
+                // else if(checkSquare == createGameboard.playerIcon[markerIndex+4] &&
+                //     createGameboard.playerIcon[markerIndex+4] == createGameboard.playerIcon[markerIndex-4]){
+                //     win();
+                   
+                // }
+                // else if(checkSquare == createGameboard.playerIcon[markerIndex+2] &&
+                //     createGameboard.playerIcon[markerIndex+2] == createGameboard.playerIcon[markerIndex-2]){
+                //     win();
+                  
+                // }
+        //     }
+        // }
         // if (gridItem[0].innerHTML == gridItem[1].innerHTML && gridItem[1].innerHTML == gridItem[2].innerHTML){
         //     win();
         // }
