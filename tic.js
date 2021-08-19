@@ -24,6 +24,7 @@ var createGameboard = (() => {
         generateBoard();
         user.turn = !user.turn;
         displayController.checkForWin();
+        displayController.checkForDraw();
         }
     }
     return {
@@ -36,8 +37,9 @@ var createGameboard = (() => {
 const Player = (name) => {
     const getName = () => name;
     const turn = () => true;
+    const hasWon = () => false;
     const move = (steps) => createGameboard.addMarker(name, steps);
-    return {getName, move, turn};
+    return {getName, move, hasWon, turn};
 }
 
 var displayController = (() => {
@@ -59,7 +61,11 @@ var displayController = (() => {
         }
     })
     function win(name){
-        console.log(name + " Wins!")
+        console.log(name + " Wins!");
+    }
+
+    function draw(){
+        console.log('Nobody wins!');
     }
 
     function checkForWin() {
@@ -74,9 +80,11 @@ var displayController = (() => {
             [0,4,8],
             [2,4,6]
         ];
+        
         for (var i=0; i<winConditions.length; i++){
             var x = 0;
             var o = 0;
+
             for (var j=0; j<winConditions[i].length; j++){
                 // debugger;
                 var markerIndex = winConditions[i][j];
@@ -86,65 +94,41 @@ var displayController = (() => {
                 }
                 else if (checkSquare == 'x' ? x += 1 : o += 1){
                     if (x === 3){
+                        user.hasWon = !user.hasWon;
                         win(user.getName());
                     }
                     else if (o === 3) {
+                        user2.hasWon = !user2.hasWon;
                         win(user2.getName());
                     }
                 }
             }
-        }
-
-
-                // else if (checkSquare == createGameboard.playerIcon[markerIndex+1] &&
-                //     createGameboard.playerIcon[markerIndex+1] == createGameboard.playerIcon[markerIndex-1]){
-                //     win();
-                    
-                // }
-                // else if(checkSquare == createGameboard.playerIcon[markerIndex+3] &&
-                //     createGameboard.playerIcon[markerIndex+3] == createGameboard.playerIcon[markerIndex-3]){
-                //     win();
-                  
-                // }
-                // else if(checkSquare == createGameboard.playerIcon[markerIndex+4] &&
-                //     createGameboard.playerIcon[markerIndex+4] == createGameboard.playerIcon[markerIndex-4]){
-                //     win();
-                   
-                // }
-                // else if(checkSquare == createGameboard.playerIcon[markerIndex+2] &&
-                //     createGameboard.playerIcon[markerIndex+2] == createGameboard.playerIcon[markerIndex-2]){
-                //     win();
-                  
-                // }
-        //     }
-        // }
-        // if (gridItem[0].innerHTML == gridItem[1].innerHTML && gridItem[1].innerHTML == gridItem[2].innerHTML){
-        //     win();
-        // }
-        // else if (gridItem[3].innerHTML == gridItem[4].innerHTML && gridItem[4].innerHTML == gridItem[5].innerHTML){
-        //     win();
-        // }
-        // else if (gridItem[6].innerHTML == gridItem[7].innerHTML && gridItem[7].innerHTML == gridItem[8].innerHTML){
-        //     win();
-        // }
-        // else if (gridItem[0].innerHTML == gridItem[3].innerHTML && gridItem[6].innerHTML == gridItem[6].innerHTML){
-        //     win();
-        // }
-        // else if (gridItem[1].innerHTML == gridItem[4].innerHTML && gridItem[4].innerHTML == gridItem[7].innerHTML){
-        //     win();
-        // }
-        // else if (gridItem[2].innerHTML == gridItem[5].innerHTML && gridItem[5].innerHTML == gridItem[8].innerHTML){
-        //     win();
-        // }
-        // else if (gridItem[0].innerHTML == gridItem[4].innerHTML && gridItem[4].innerHTML == gridItem[8].innerHTML){
-        //     win();
-        // }
-        // else if (gridItem[2].innerHTML == gridItem[4].innerHTML && gridItem[4].innerHTML == gridItem[6].innerHTML){
-        //     win();
-        // }
-
+        }    
     }
-    return {checkForWin : checkForWin};
+
+    function checkForDraw() {
+        var boardFull = 0;
+        // debugger;
+        for (var i = 0; i<createGameboard.playerIcon.length; i++){
+            if (createGameboard.playerIcon[i] === '') {
+                continue;
+            }
+            else if (user.hasWon || user2.hasWon){
+                break;
+            }
+            else {
+                boardFull +=1;
+                if (boardFull == 9){
+                    draw();
+                }
+            }
+        }
+    }
+
+    return {
+        checkForWin : checkForWin,
+        checkForDraw : checkForDraw
+    };
 })();
 
 createGameboard.generateBoard();
