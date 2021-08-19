@@ -45,7 +45,9 @@ const Player = (name) => {
 var displayController = (() => {
     var gridItem = document.querySelectorAll('[id^="grid"]');
 
-    document.addEventListener('click', function(e){
+    document.addEventListener('click', takeTurn)
+
+        function takeTurn(e){
         // getting grid element from target click // 
         for (i=0; i<gridItem.length; i++){
             // retrieving amount of steps for placing player marker in addMarker function //
@@ -59,14 +61,16 @@ var displayController = (() => {
                 }
             }
         }
-    })
-    function win(name){
-        console.log(name + " Wins!");
     }
 
+    function win(name){
+        console.log(name + " Wins!");
+        document.removeEventListener('click', takeTurn);
+    }
     function draw(){
         console.log('Nobody wins!');
     }
+
 
     function checkForWin() {
 
