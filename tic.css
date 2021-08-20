@@ -17,36 +17,67 @@ header{
 
 body {
     display: grid;
-    grid-template-areas: 
-    "header header header header"
-    "none none none none"
-    ". board board ."
-    ". board board .";
-    grid-template-columns: 1fr 10% 16% 1fr;
-    grid-template-rows: 10% 15% 23% 24% 100%;
-    padding:0;
+    grid-template-areas:
+        "header header header header header"
+        "none none none none none"
+        ". . board board ."
+        ". . board board .";
+    grid-template-columns: 29% 11% 6% 12% 1fr;
+    grid-template-rows: 11% 17% 15% 24% 7% 100%;
+    padding: 0;
     margin: 0;
-    height:100%;
+    height: 100%;
     width: 100%;
     background-color: rgb(219, 211, 193);
 }
-footer{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-}
 
+#p2-select{
+    display:grid;
+    grid-template-areas:
+        ". title title ."
+        ". . . ."
+        ". human-button ai-button .";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-area: board;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+.player-card{
+    grid-area: title;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+.player-buttons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    background: none;
+}
+#human-button{
+    grid-area: human-button;
+}
+#ai-button{
+    grid-area: ai-button;
+}
 #gameboard-background{
     grid-area: board;
     width: 100%;
     height: 100%;
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     background-color: rgb(223, 165, 165);   
-
+    
 }
 .gameboard{
     font-size: 3em;
@@ -71,4 +102,12 @@ footer{
 #grid-8{
     border-right: var(--game-border-color);
     border-left: var(--game-border-color);
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
