@@ -8,7 +8,6 @@ html{
 
 header{
     grid-area: header;
-    background:rgb(185, 70, 70);
     width: 100%;
     height: 100%;
     font-size: 4em;
@@ -28,15 +27,15 @@ body {
     margin: 0;
     height: 100%;
     width: 100%;
-    background-color: rgb(219, 211, 193);
+    background-color: #b3e5fc;
 }
 
 #p2-select{
     display:grid;
     grid-template-areas:
-        ". title title ."
-        ". . . ."
-        ". human-button ai-button .";
+    ". title title ."
+    ". human-button ai-button ai-button"
+    ". human-button ai-button ai-button";
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-area: board;
@@ -58,11 +57,21 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
-    justify-content: center;
     cursor: pointer;
-    font-size: 15px;
+    font-size:23px;
     background: none;
+    border: none;
+    width: 49%;
+    height: 20%;
+    margin: 0;
+    padding: 0;
 }
+
+.player-buttons:hover {
+    /* transform: translateY(2px); */
+    text-shadow: 0 -1px 0 rgb(51, 51, 51);
+}
+
 #human-button{
     grid-area: human-button;
 }

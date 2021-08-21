@@ -17,6 +17,9 @@ var createGameboard = (() => {
     function addMarker(Player,steps) {
         // if marker exists, do nothing //
         if (playerIcon[steps] != ''){
+            if(user2.isAi){
+                displayController.aiTakeTurn()
+            }
             return null;
         }
         else{
@@ -36,11 +39,35 @@ var createGameboard = (() => {
 
 const Player = (name) => {
     const getName = () => name;
+    const isAi = () => false;
     const turn = () => true;
     const hasWon = () => false;
     const move = (steps) => createGameboard.addMarker(name, steps);
-    return {getName, move, hasWon, turn};
+    return {getName, isAi, move, hasWon, turn};
 }
+
+const choosePlayer = (() => {
+    document.addEventListener('click', player2);
+    var choosePlayerDiv = document.getElementById('p2-select');
+    var gameboardBackground = document.getElementById('gameboard-background');
+
+    function player2(e){
+        if (e.target.id == 'ai-button'){
+            user2.isAi = true;
+            console.log(user2.isAi);
+            choosePlayerDiv.style.display = 'none';
+            gameboardBackground.style.display = 'grid';
+
+
+        }
+        else if(e.target.id == 'human-button'){
+            user2.isAi=false;
+            choosePlayerDiv.style.display = 'none';
+            gameboardBackground.style.display = 'grid';
+            console.log(user2.isAi);
+        }
+    }
+})();
 
 var displayController = (() => {
     var gridItem = document.querySelectorAll('[id^="grid"]');
@@ -55,12 +82,21 @@ var displayController = (() => {
             if (e.target.id == gridItem[i].id){
                 if (user.turn){
                     user.move(steps);
+                    if (user2.isAi){
+                        aiTakeTurn();
+                    }
                 }
                 else {
                     user2.move(steps);
                 }
             }
         }
+    }
+
+    function aiTakeTurn(){
+        var randomSquare = Math.floor(Math.random() * 9);
+        user2.move(randomSquare);
+        console.log(randomSquare);
     }
 
     function win(name){
@@ -131,9 +167,12 @@ var displayController = (() => {
 
     return {
         checkForWin : checkForWin,
-        checkForDraw : checkForDraw
+        checkForDraw : checkForDraw,
+        aiTakeTurn : aiTakeTurn
     };
 })();
+
+
 
 createGameboard.generateBoard();
 const user = Player('x');
