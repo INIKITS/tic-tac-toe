@@ -31,6 +31,7 @@ var createGameboard = (() => {
         }
     }
     return {
+        gameBoard:gameBoard,
         playerIcon:playerIcon,
         generateBoard : generateBoard,
         addMarker: addMarker
@@ -104,6 +105,8 @@ var displayController = (() => {
         console.log(name + " Wins!");
         document.removeEventListener('click', takeTurn);
         user2.isAi = false;
+        gameBoardDisappear();
+        restartCard();
 
     }
     function draw(){
@@ -168,15 +171,25 @@ var displayController = (() => {
         }
     }
 
-    var restartCard = (() =>{
+    function gameBoardDisappear(){
+        var gameboardBackground = document.getElementById('gameboard-background');
+       for (i=0; i<createGameboard.gameBoard.length; i++){
+           createGameboard.gameBoard[i].className = 'grid-disappear';
+       }
+        gameboardBackground.className = 'gameboard-disappear';
+
+    }
+
+    function restartCard(){
         var restartButton = document.getElementById('restart-button');
         var playAgainCard = document.getElementById('play-again');
+
 
         restartButton.addEventListener('click', function(){
             playAgainCard.className = 'disappear';
             restartButton.className = 'disappear-button';
         })
-    })();
+    };
 
     return {
         checkForWin : checkForWin,
