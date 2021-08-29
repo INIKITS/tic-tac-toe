@@ -30,8 +30,8 @@ body {
     background-color: #b3e5fc;
 }
 
-#p2-select{
-    display:grid;
+.player-select{
+    display:none;
     grid-template-areas:
     ". title title ."
     ". human-button ai-button ai-button"
@@ -43,6 +43,7 @@ body {
     height: 100%;
     background: transparent;
 }
+
 .player-card{
     grid-area: title;
     display: flex;
@@ -70,6 +71,81 @@ body {
 .player-buttons:hover {
     /* transform: translateY(2px); */
     text-shadow: 0 -1px 0 rgb(51, 51, 51);
+}
+
+
+#restart-title{
+    grid-area: title;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+#restart-button{
+    grid-area: restart-button;
+    height: 50%;
+    border: 1px solid black;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#play-again{
+    display:grid;
+    grid-template-areas:
+    "title title title title"
+    ". . . ."
+    ". restart-button restart-button .";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-area: board;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 1px solid black;
+    box-shadow: -47px 19px 2px -2px rgb(0 0 0 / 24%);
+}
+
+.disappear{
+    /* display:grid;
+    grid-template-areas:
+    "title title title title"
+    ". . . ."
+    ". restart-button restart-button .";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-area: board;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 1px solid black;
+    box-shadow: -50px 21px 4px -21px rgba(0,0,0,0.53); */
+
+    animation-name: disappear;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+.disappear-button{
+    cursor: default;
+    animation-name: disappear-button;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes disappear {
+    0% {    box-shadow: -47px 19px 2px -2px rgb(0 0 0 / 24%);;border: 1px solid black;
+        color: black; }
+    100% {box-shadow: -19px 21px 4px -21px rgba(0, 0, 0, 0); border: 0px solid rgba(0, 0, 0, 0);
+        color: rgba(0, 0, 0, 0); }
+}
+
+@keyframes disappear-button {
+    0% {border: 1px solid black;
+        color: black; }
+    100% {border: 0px solid rgba(0, 0, 0, 0);color: rgba(0, 0, 0, 0); }
 }
 
 #human-button{

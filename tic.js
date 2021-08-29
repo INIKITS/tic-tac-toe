@@ -82,8 +82,9 @@ var displayController = (() => {
             if (e.target.id == gridItem[i].id){
                 if (user.turn){
                     user.move(steps);
+                    // document.removeEventListener('click', takeTurn);
                     if (user2.isAi){
-                        aiTakeTurn();
+                        setTimeout(() => {aiTakeTurn();}, 500);
                     }
                 }
                 else {
@@ -102,6 +103,8 @@ var displayController = (() => {
     function win(name){
         console.log(name + " Wins!");
         document.removeEventListener('click', takeTurn);
+        user2.isAi = false;
+
     }
     function draw(){
         console.log('Nobody wins!');
@@ -164,6 +167,16 @@ var displayController = (() => {
             }
         }
     }
+
+    var restartCard = (() =>{
+        var restartButton = document.getElementById('restart-button');
+        var playAgainCard = document.getElementById('play-again');
+
+        restartButton.addEventListener('click', function(){
+            playAgainCard.className = 'disappear';
+            restartButton.className = 'disappear-button';
+        })
+    })();
 
     return {
         checkForWin : checkForWin,
