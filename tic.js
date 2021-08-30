@@ -173,9 +173,8 @@ var displayController = (() => {
 
     function gameBoardDisappear(){
         var gameboardBackground = document.getElementById('gameboard-background');
-       for (i=0; i<createGameboard.gameBoard.length; i++){
-           createGameboard.gameBoard[i].className = 'grid-disappear';
-       }
+
+        document.getElementsByClassName('gameboard').classList.add('grid-disappear');
         gameboardBackground.className = 'gameboard-disappear';
 
     }
