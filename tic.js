@@ -102,11 +102,13 @@ var displayController = (() => {
     }
 
     function win(name){
-        console.log(name + " Wins!");
+        var restartTitle = document.getElementById('restart-title');
+
+        restartTitle.innerHTML = name + ' wins!';
         document.removeEventListener('click', takeTurn);
         user2.isAi = false;
         gameBoardDisappear();
-        restartCard();
+        restartCard(name);
 
     }
     function draw(){
@@ -177,15 +179,18 @@ var displayController = (() => {
         for (var i = 0; i<createGameboard.gameBoard.length; i++){
             createGameboard.gameBoard[i].classList.add('grid-disappear');
         }
-        setTimeout(() => {gameboardBackground.style.display = 'none';restartCard();}, 1500);
+        setTimeout(() => {gameboardBackground.style.display = 'none';restartCard();}, 1200);
     }
 
-    function restartCard(){
+    function restartCard(name){
         var restartButton = document.getElementById('restart-button');
         var playAgainCard = document.getElementById('play-again');
+
+        setTimeout(()=> {
         playAgainCard.style.display = 'grid';
         playAgainCard.className = 'appear';
-        restartButton.className = 'appear-button';
+        restartButton.className = 'appear-button'; 
+    }, 1300);
 
         restartButton.addEventListener('click', function(){
             playAgainCard.className = 'disappear';
