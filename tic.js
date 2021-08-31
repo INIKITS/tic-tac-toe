@@ -174,15 +174,18 @@ var displayController = (() => {
     function gameBoardDisappear(){
         var gameboardBackground = document.getElementById('gameboard-background');
 
-        document.getElementsByClassName('gameboard').classList.add('grid-disappear');
-        gameboardBackground.className = 'gameboard-disappear';
-
+        for (var i = 0; i<createGameboard.gameBoard.length; i++){
+            createGameboard.gameBoard[i].classList.add('grid-disappear');
+        }
+        setTimeout(() => {gameboardBackground.style.display = 'none';restartCard();}, 1500);
     }
 
     function restartCard(){
         var restartButton = document.getElementById('restart-button');
         var playAgainCard = document.getElementById('play-again');
-
+        playAgainCard.style.display = 'grid';
+        playAgainCard.className = 'appear';
+        restartButton.className = 'appear-button';
 
         restartButton.addEventListener('click', function(){
             playAgainCard.className = 'disappear';
