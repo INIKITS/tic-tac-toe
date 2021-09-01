@@ -14,6 +14,11 @@ var createGameboard = (() => {
         }
     }
 
+    function clearBoard(){
+            playerIcon.splice(0);
+            generateBoard();
+    }
+
     function addMarker(Player,steps) {
         // if marker exists, do nothing //
         if (playerIcon[steps] != ''){
@@ -33,6 +38,7 @@ var createGameboard = (() => {
     return {
         gameBoard:gameBoard,
         playerIcon:playerIcon,
+        clearBoard:clearBoard,
         generateBoard : generateBoard,
         addMarker: addMarker
     };
@@ -72,6 +78,9 @@ const choosePlayer = (() => {
 
 var displayController = (() => {
     var gridItem = document.querySelectorAll('[id^="grid"]');
+    var canMove = true;
+
+
 
     document.addEventListener('click', takeTurn)
 
@@ -105,10 +114,10 @@ var displayController = (() => {
         var restartTitle = document.getElementById('restart-title');
 
         restartTitle.innerHTML = name + ' wins!';
-        document.removeEventListener('click', takeTurn);
         user2.isAi = false;
         gameBoardDisappear();
         restartCard(name);
+        toggleMove();
 
     }
     function draw(){
@@ -193,10 +202,33 @@ var displayController = (() => {
     }, 1300);
 
         restartButton.addEventListener('click', function(){
+            debugger;
             playAgainCard.className = 'disappear';
             restartButton.className = 'disappear-button';
+            setTimeout(() => {
+            playAgainCard.style.display = 'none';
+            gameBoardAppear();
+            toggleMove();
+            }, 1200);
         })
     };
+
+    function gameBoardAppear(){
+        var gameboardBackground = document.getElementById('gameboard-background');
+        createGameboard.clearBoard();
+        gameboardBackground.style.display ='grid';
+    }
+
+    function toggleMove(){
+        canMove = !canMove;
+        if (canMove){
+            document.addEventListener('click', takeTurn)
+        }
+        else{
+            document.removeEventListener('click', takeTurn);    
+        }
+        console.log(canMove);
+    }
 
     return {
         checkForWin : checkForWin,

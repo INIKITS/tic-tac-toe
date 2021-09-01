@@ -194,6 +194,11 @@ body {
     0%{background-color: rgb(223, 165, 165)}
     100%{background-color: #b3e5fc}
 }
+
+@keyframes gameboard-appear{
+    0%{background-color: #b3e5fc}
+    100%{background-color: rgb(223, 165, 165)}
+}
 .grid-disappear{
     font-size: 3em;
     height: 100%;
@@ -209,6 +214,9 @@ body {
 @keyframes grid-disappear{
     0%{}
     100%{background-color: #b3e5fc; border-color:#b3e5fc; color:#b3e5fc; }
+}
+@keyframes grid-appear{
+    
 }
 #grid-2, #grid-5{
     border-right: var(--game-border-color);
